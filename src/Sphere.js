@@ -1,9 +1,11 @@
 import * as THREE from 'three'
 import { RapierPhysics } from 'three/addons/physics/RapierPhysics.js';
 import { RapierHelper } from 'three/addons/helpers/RapierHelper.js';
+import { GameObject } from './GameObject';
 
-export class SphereObject {
+export class SphereObject extends GameObject{
   constructor() {
+    super('Ball')
     const geometry = new THREE.SphereGeometry(1)
     
     const loader = new THREE.TextureLoader()

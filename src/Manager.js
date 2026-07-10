@@ -22,7 +22,7 @@ export class Manager {
 
     this.floor = new PlaneObject()
     this.activeScene.add(this.floor.mesh())
-    this.activeScene.add(new LightObject().mesh()) 
+    this.activeScene.add(new LightObject().mesh) 
 
     this.objects = [
       new SphereObject(),

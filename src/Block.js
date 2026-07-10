@@ -1,7 +1,9 @@
 import * as THREE from 'three'
+import { GameObject } from './GameObject'
 
-export class BlockObject{
+export class BlockObject extends GameObject{
   constructor(){
+    super('Block')
     const blockSize = 2.5
     const geometry = new THREE.BoxGeometry(blockSize, blockSize, blockSize, blockSize)
     const material = new THREE.MeshPhongMaterial({
@@ -13,10 +15,5 @@ export class BlockObject{
 
   mesh() {
     return this.blockMesh
-  }
-
-
-  update(deltaTime) {
-
   }
 }

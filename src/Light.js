@@ -1,16 +1,9 @@
 import * as THREE from 'three'
+import { GameObject } from './GameObject';
 
-export class LightObject {
+export class LightObject extends GameObject{
   constructor(){
-
-    // const color = 0xFFFFFF;
-    // const intensity = 3;
-    // this.light = new THREE.DirectionalLight( color, intensity );
-    // this.light.position.set( 0, 10, 0 );
-    // this.light.target.position.set( - 5, 0, 0 );
-
-    // scene.add( ambient );
-
+    super('light')
     this.light = new THREE.DirectionalLight( 0xffffff, 4 );
 
     this.light.position.set( 0, 12.5, 12.5 );
@@ -31,11 +24,7 @@ export class LightObject {
     
   }
 
-  mesh() {
+  get mesh() {
     return this.light
-  }
-
-  update(time){
-    
   }
 }
