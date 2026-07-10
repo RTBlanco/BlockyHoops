@@ -3,6 +3,10 @@ export class GameObject {
     this.type = type
   }
 
+  get mesh(){
+
+  }
+  
   update(deltaTime) {
 
   }
