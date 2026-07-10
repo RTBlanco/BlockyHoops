@@ -13,7 +13,7 @@ export class BlockObject extends GameObject{
     this.blockMesh = new THREE.Mesh(geometry, material)
   }
 
-  mesh() {
+  get mesh() {
     return this.blockMesh
   }
 }
