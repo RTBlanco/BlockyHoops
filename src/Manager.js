@@ -3,7 +3,7 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import { CameraObject } from './Camera';
 import { PlaneObject } from './Plane';
 import { LightObject } from './Light';
-import { SphereObject } from './Sphere';
+import { BallObject } from './Ball';
 
 import { RapierPhysics } from 'three/addons/physics/RapierPhysics.js';
 import { RapierHelper } from 'three/addons/helpers/RapierHelper.js';
@@ -21,11 +21,11 @@ export class Manager {
     this.activeScene.add(ambient)
 
     this.floor = new PlaneObject()
-    this.activeScene.add(this.floor.mesh())
+    this.activeScene.add(this.floor.mesh)
     this.activeScene.add(new LightObject().mesh) 
 
     this.objects = [
-      new SphereObject(),
+      new BallObject(),
       new BlockObject()
     ]
     
@@ -75,10 +75,9 @@ export class Manager {
 
   _addToScene(items){
     for (const item of items) {
-      console.log(item)
-      const mesh = item.mesh();
-
+      const mesh = item.mesh;
       this.activeScene.add(mesh);
+      
       this.physics.addMesh(mesh, 1, 1);
 
       const body = mesh.userData.physics?.body;
@@ -86,6 +85,7 @@ export class Manager {
       body?.setLinearDamping(1.5);
       body?.setAngularDamping(1.5);
       body?.setGravityScale(10, true);
+
     }
   }
 
