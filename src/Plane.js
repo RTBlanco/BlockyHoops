@@ -23,10 +23,9 @@ export class PlaneObject extends GameObject{
       this.floor.material.needsUpdate = true;
 
     } );
-
   }
 
-  mesh() {
+  get mesh() {
     return this.floor
   }
 }
