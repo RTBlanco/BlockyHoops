@@ -1,6 +1,4 @@
 import * as THREE from 'three'
-import { RapierPhysics } from 'three/addons/physics/RapierPhysics.js';
-import { RapierHelper } from 'three/addons/helpers/RapierHelper.js';
 import { GameObject } from './GameObject';
 
 export class BallObject extends GameObject{
@@ -16,13 +14,33 @@ export class BallObject extends GameObject{
       map: texture
     })
 
-    this.ball = new THREE.Mesh(geometry, material)
-    this.ball.position.y = 10
-    this.ball.castShadow = true;
-    
-    // this.speed = 1
-    // this.keys = {}
+    this.mesh = new THREE.Mesh(geometry, material)
+    this.mesh.position.y = 10
+    this.mesh.castShadow = true;
 
+    this.mesh.userData.physics = {
+      mass: 1,
+      restitution: 1
+    }
+
+    this.body = null
+    this._controls()
+
+    
+  }
+
+  initializePhysics(physics) {
+    physics.addMesh(this.mesh, 1, 1)
+    this.body = this.mesh.userData.physics?.body ?? null
+
+    if (!this.body) throw new Error('Ball physics body was not created')
+
+    this.body.setLinearDamping(1.5)
+    this.body.setAngularDamping(1.5)
+    this.body.setGravityScale(10, true)
+  }
+
+  _controls() {
     this.onGround = false
     this.jumpQueued = false
     this.movement = { forward: 0, right: 0 };
@@ -35,7 +53,7 @@ export class BallObject extends GameObject{
       if ( event.key === 'd' || event.key === 'ArrowRight' ) this.movement.right = 1;
       if ( event.key === ' ' && ! event.repeat ) {
         event.preventDefault();
-        this.jumpQueued = true
+        this.jump()
       }
   
     } );
@@ -49,26 +67,28 @@ export class BallObject extends GameObject{
 
   }
 
-  get mesh(){
-    return this.ball
+  jump() {
+    this.jumpQueued = true
+  }
+
+  applyImpulse(x, y, z) {
+    this.body?.applyImpulse({ x, y, z }, true)
   }
 
   update(deltaTime) {
-    const mesh = this.ball;
-    const body = mesh.userData.physics?.body;
-    if (!body) return;
+    if (!this.body) return;
 
     const speed = 6;
     const direction = new THREE.Vector3(this.movement.right, 0, -this.movement.forward);
     if (direction.lengthSq() > 1) direction.normalize();
 
-    const velocity = body.linvel();
-    const position = body.translation();
+    const velocity = this.body.linvel();
+    const position = this.body.translation();
     const isGrounded = position.y <= 1.5;
 
     const hasMovementInput = direction.lengthSq() > 0;
 
-    body.setLinvel({
+    this.body.setLinvel({
       // Keep the existing velocity after releasing the keys.
       x: hasMovementInput ? direction.x * speed : velocity.x,
       y: this.jumpQueued && isGrounded ? 25 : velocity.y,

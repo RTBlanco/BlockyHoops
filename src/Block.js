@@ -10,10 +10,18 @@ export class BlockObject extends GameObject{
       color: "green"
     })
 
-    this.blockMesh = new THREE.Mesh(geometry, material)
+    this.mesh = new THREE.Mesh(geometry, material)
+    this.body = null
   }
 
-  get mesh() {
-    return this.blockMesh
+  initializePhysics(physics) {
+    physics.addMesh(this.mesh, 1, 1)
+    this.body = this.mesh.userData.physics?.body ?? null
+
+    if (!this.body) throw new Error('Block physics body was not created')
+
+    this.body.setLinearDamping(1.5)
+    this.body.setAngularDamping(1.5)
+    this.body.setGravityScale(10, true)
   }
 }

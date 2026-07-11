@@ -68,8 +68,8 @@ export class Manager {
     //Optionally display collider outlines
     this.physicsHelper = new RapierHelper( this.physics.world );
     this.activeScene.add( this.physicsHelper );
-    this.physics.addScene( this.activeScene );
-    
+
+    this.floor.initializePhysics(this.physics)
     this._addToScene(this.objects)   
   }
 
@@ -77,14 +77,7 @@ export class Manager {
     for (const item of items) {
       const mesh = item.mesh;
       this.activeScene.add(mesh);
-      
-      this.physics.addMesh(mesh, 1, 1);
-
-      const body = mesh.userData.physics?.body;
-
-      body?.setLinearDamping(1.5);
-      body?.setAngularDamping(1.5);
-      body?.setGravityScale(10, true);
+      item.initializePhysics(this.physics)
 
     }
   }
