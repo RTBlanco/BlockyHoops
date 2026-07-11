@@ -49,7 +49,7 @@ export class Manager {
   
     
     for(let i=0; i < this.objects.length; i++){
-      this.objects[i].update(time);
+      this.objects[i].update(time, this.physics);
     }
 
 
