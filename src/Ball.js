@@ -89,7 +89,6 @@ export class BallObject extends GameObject{
     const hasMovementInput = direction.lengthSq() > 0;
 
     this.body.setLinvel({
-      // Keep the existing velocity after releasing the keys.
       x: hasMovementInput ? direction.x * speed : velocity.x,
       y: this.jumpQueued && isGrounded ? 25 : velocity.y,
       z: hasMovementInput ? direction.z * speed : velocity.z,
