@@ -75,18 +75,14 @@ export class BallObject extends GameObject{
     this.body?.applyImpulse({ x, y, z }, true)
   }
 
-  update(deltaTime, physics, objects) {
+  update(time, physics, objects) {
     if (!this.body) return;
-
-
+   
     this.onGround = false
     physics.world.colliders.map.data.forEach(element => {
       physics.world.contactPair(this.collider, element,() => {
-        // console.log('contact')
-        // console.log(element)
-        // if (this.onGround)
-        // this.onGround = true
         this.onGround = true
+        // console.log(this.onGround)
       }
     )
     });
@@ -99,7 +95,6 @@ export class BallObject extends GameObject{
     const velocity = this.body.linvel();
     const position = this.body.translation();
     const isGrounded = position.y <= 1.5;
-
     const hasMovementInput = direction.lengthSq() > 0;
 
     this.body.setLinvel({
@@ -114,6 +109,6 @@ export class BallObject extends GameObject{
     // console.log(physics.world.colliders.map.data)
     // physics.world.colliders.
     // console.log(objects)
-    
+    time.reset()
   }
 }
