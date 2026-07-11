@@ -18,7 +18,6 @@ export class BallObject extends GameObject{
     this.mesh.position.y = 10
     this.mesh.castShadow = true;
 
-    this.body = null
     this._controls()
 
     
@@ -34,16 +33,20 @@ export class BallObject extends GameObject{
     this.body.setLinearDamping(1.5)
     this.body.setAngularDamping(1.5)
     this.body.setGravityScale(10, true)
-    // this.collider['GameObjectType'] = this.type
-    // physics.RAPIER.world.eventQueue.drainCollisionEvents(eventCollector);
-    // console.log(this.mesh.userData.physics.collider)    
-    // this.collider.setActiveEvents(physics.RAPIER.ActiveEvents.COLLISION_EVENTS)
     
+    // debugger
+    // console.log(this.collider)
   }
 
   _controls() {
     this.jumpQueued = false
     this.movement = { forward: 0, right: 0 };
+
+    this.coyoteTime = 0.15
+    this.coyoteTimer = 0
+
+    this.jumpBufferTime = 0.15
+    this.jumpBufferTimer = 0
 
     window.addEventListener( 'keydown', ( event ) => {
 
@@ -68,7 +71,8 @@ export class BallObject extends GameObject{
   }
 
   jump() {
-    this.jumpQueued = true
+    // this.jumpQueued = true
+    this.jumpBufferTimer = this.jumpBufferTime
   }
 
   applyImpulse(x, y, z) {
@@ -77,38 +81,57 @@ export class BallObject extends GameObject{
 
   update(time, physics, objects) {
     if (!this.body) return;
-   
+
+    const deltaTime = time.getDelta()
+    const speed = 6
+    const jumpSpeed = 25
+
     this.onGround = false
     physics.world.colliders.map.data.forEach(element => {
-      physics.world.contactPair(this.collider, element,() => {
+      physics.world.contactPair(this.collider, element,(e, f) => {
         this.onGround = true
         // console.log(this.onGround)
+        // console.log(element.translation().y)
+        // console.log(e)
+        // debugger
       }
     )
     });
 
 
-    const speed = 6;
+    // const speed = 6;
     const direction = new THREE.Vector3(this.movement.right, 0, -this.movement.forward);
     if (direction.lengthSq() > 1) direction.normalize();
 
     const velocity = this.body.linvel();
     const position = this.body.translation();
-    const isGrounded = position.y <= 1.5;
+    const isGrounded = this.onGround
+    if (isGrounded) {
+      this.coyoteTimer = this.coyoteTime
+    } else {
+      this.coyoteTimer = Math.max(0,this.coyoteTimer - deltaTime)
+    }
+
+    this.jumpBufferTimer = Math.max(0,this.jumpBufferTimer - deltaTime)
+
+    const canJump = this.coyoteTimer > 0 && this.jumpBufferTimer > 0
     const hasMovementInput = direction.lengthSq() > 0;
 
     this.body.setLinvel({
       x: hasMovementInput ? direction.x * speed : velocity.x,
-      y: this.jumpQueued && this.onGround ? 25 : velocity.y,
+      y: canJump ? jumpSpeed : velocity.y,
       z: hasMovementInput ? direction.z * speed : velocity.z,
     }, true);
 
-    // this.onGround = isGrounded;
-    this.jumpQueued = false;
 
+    if (canJump) {
+      this.coyoteTimer = 0
+      this.jumpBufferTimer = 0
+    }
+
+    this.onGround = isGrounded
     // console.log(physics.world.colliders.map.data)
     // physics.world.colliders.
-    // console.log(objects)
-    time.reset()
+    // console.log(position)
   }
 }
