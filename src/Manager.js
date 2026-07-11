@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import { CameraObject } from './Camera';
-import { PlaneObject } from './Plane';
+import { FloorObject } from './Floor';
 import { LightObject } from './Light';
 import { BallObject } from './Ball';
 
@@ -20,7 +20,7 @@ export class Manager {
     const ambient = new THREE.HemisphereLight( 0x555555, 0xFFFFFF );
     this.activeScene.add(ambient)
 
-    this.floor = new PlaneObject()
+    this.floor = new FloorObject()
     this.activeScene.add(this.floor.mesh)
     this.activeScene.add(new LightObject().mesh) 
 

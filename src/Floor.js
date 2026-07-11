@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { GameObject } from './GameObject';
 
-export class PlaneObject extends GameObject{
+export class FloorObject extends GameObject{
   constructor() {
     super('floor')
 
