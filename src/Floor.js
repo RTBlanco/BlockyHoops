@@ -12,7 +12,6 @@ export class FloorObject extends GameObject{
     this.mesh.receiveShadow = true;
 
     this.mesh.position.y = - 0.25;
-    this.mesh.userData.physics = { mass: 0 };
 
     new THREE.TextureLoader().load('../public/textures/grid.png', ( texture ) => {
 

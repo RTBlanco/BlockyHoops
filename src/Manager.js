@@ -20,13 +20,14 @@ export class Manager {
     const ambient = new THREE.HemisphereLight( 0x555555, 0xFFFFFF );
     this.activeScene.add(ambient)
 
-    this.floor = new FloorObject()
-    this.activeScene.add(this.floor.mesh)
+    // this.floor = new FloorObject()
+    // this.activeScene.add(this.floor.mesh)
     this.activeScene.add(new LightObject().mesh) 
 
     this.objects = [
+      new FloorObject(),
       new BallObject(),
-      new BlockObject()
+      new BlockObject(),
     ]
     
     this.initPhysics();
@@ -49,7 +50,10 @@ export class Manager {
   
     
     for(let i=0; i < this.objects.length; i++){
-      this.objects[i].update(time, this.physics);
+      let objects = [...this.objects]
+      objects.splice(i, i)
+
+      this.objects[i].update(time, this.physics, objects);
     }
 
 
@@ -69,7 +73,7 @@ export class Manager {
     this.physicsHelper = new RapierHelper( this.physics.world );
     this.activeScene.add( this.physicsHelper );
 
-    this.floor.initializePhysics(this.physics)
+    // this.floor.initializePhysics(this.physics)
     this._addToScene(this.objects)   
   }
 

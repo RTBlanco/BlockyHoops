@@ -18,11 +18,6 @@ export class BallObject extends GameObject{
     this.mesh.position.y = 10
     this.mesh.castShadow = true;
 
-    this.mesh.userData.physics = {
-      mass: 1,
-      restitution: 1
-    }
-
     this.body = null
     this._controls()
 
@@ -39,7 +34,7 @@ export class BallObject extends GameObject{
     this.body.setLinearDamping(1.5)
     this.body.setAngularDamping(1.5)
     this.body.setGravityScale(10, true)
-
+    // this.collider['GameObjectType'] = this.type
     // physics.RAPIER.world.eventQueue.drainCollisionEvents(eventCollector);
     // console.log(this.mesh.userData.physics.collider)    
     // this.collider.setActiveEvents(physics.RAPIER.ActiveEvents.COLLISION_EVENTS)
@@ -47,7 +42,6 @@ export class BallObject extends GameObject{
   }
 
   _controls() {
-    this.onGround = false
     this.jumpQueued = false
     this.movement = { forward: 0, right: 0 };
 
@@ -81,8 +75,22 @@ export class BallObject extends GameObject{
     this.body?.applyImpulse({ x, y, z }, true)
   }
 
-  update(deltaTime, physics) {
+  update(deltaTime, physics, objects) {
     if (!this.body) return;
+
+
+    this.onGround = false
+    physics.world.colliders.map.data.forEach(element => {
+      physics.world.contactPair(this.collider, element,() => {
+        // console.log('contact')
+        // console.log(element)
+        // if (this.onGround)
+        // this.onGround = true
+        this.onGround = true
+      }
+    )
+    });
+
 
     const speed = 6;
     const direction = new THREE.Vector3(this.movement.right, 0, -this.movement.forward);
@@ -96,21 +104,16 @@ export class BallObject extends GameObject{
 
     this.body.setLinvel({
       x: hasMovementInput ? direction.x * speed : velocity.x,
-      y: this.jumpQueued && isGrounded ? 25 : velocity.y,
+      y: this.jumpQueued && this.onGround ? 25 : velocity.y,
       z: hasMovementInput ? direction.z * speed : velocity.z,
     }, true);
 
-    this.onGround = isGrounded;
+    // this.onGround = isGrounded;
     this.jumpQueued = false;
 
     // console.log(physics.world.colliders.map.data)
     // physics.world.colliders.
-
-    physics.world.colliders.map.data.forEach(element => {
-      physics.world.contactPair(this.collider, element,() => {
-        console.log('contact')
-      }
-    )
-    });
+    // console.log(objects)
+    
   }
 }
