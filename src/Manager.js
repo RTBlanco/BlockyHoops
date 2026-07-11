@@ -8,6 +8,7 @@ import { BallObject } from './Ball';
 import { RapierPhysics } from 'three/addons/physics/RapierPhysics.js';
 import { RapierHelper } from 'three/addons/helpers/RapierHelper.js';
 import { BlockObject } from './Block';
+import { RampObject } from './Ramp';
 
 export class Manager {
   constructor(canvas, scenes=[], cameras=[]) {
@@ -28,6 +29,7 @@ export class Manager {
       new FloorObject(),
       new BallObject(),
       new BlockObject(),
+      new RampObject()
     ]
     
     this.initPhysics();
