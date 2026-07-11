@@ -32,7 +32,7 @@ export class GameObject {
     // Objects without physics can use this default no-op.
   }
 
-  update(deltaTime) {
+  update(deltaTime, physics) {
     // Static objects can use this default no-op.
   }
 }
