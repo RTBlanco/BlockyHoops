@@ -15,7 +15,7 @@ export class BlockObject extends GameObject{
   }
 
   initializePhysics(physics) {
-    physics.addMesh(this.mesh, 1, 1)
+    physics.addMesh(this.mesh, 1)
     this.body = this.mesh.userData.physics?.body ?? null
 
     if (!this.body) throw new Error('Block physics body was not created')
