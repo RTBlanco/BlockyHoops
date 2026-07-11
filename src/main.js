@@ -11,6 +11,6 @@ const clock = new THREE.Timer()
 clock.connect(document)
 function render() {
   clock.update()
-  manager.update(clock.getDelta());
+  manager.update(clock);
 }
 manager.renderer.setAnimationLoop(render)
