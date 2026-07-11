@@ -11,7 +11,7 @@ export class BlockObject extends GameObject{
     })
 
     this.mesh = new THREE.Mesh(geometry, material)
-    this.body = null
+    this.mesh.position.y = 1.5
   }
 
   initializePhysics(physics) {
@@ -20,8 +20,8 @@ export class BlockObject extends GameObject{
 
     if (!this.body) throw new Error('Block physics body was not created')
 
-    this.body.setLinearDamping(1.5)
-    this.body.setAngularDamping(1.5)
+    // this.body.setLinearDamping(1.5)
+    // this.body.setAngularDamping(1.5)
     this.body.setGravityScale(10, true)
   }
 }
