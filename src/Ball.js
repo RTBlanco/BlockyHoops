@@ -32,12 +32,18 @@ export class BallObject extends GameObject{
   initializePhysics(physics) {
     physics.addMesh(this.mesh, 1, 1)
     this.body = this.mesh.userData.physics?.body ?? null
+    this.collider = this.mesh.userData.physics.collider ?? null
 
     if (!this.body) throw new Error('Ball physics body was not created')
 
     this.body.setLinearDamping(1.5)
     this.body.setAngularDamping(1.5)
     this.body.setGravityScale(10, true)
+
+    // physics.RAPIER.world.eventQueue.drainCollisionEvents(eventCollector);
+    // console.log(this.mesh.userData.physics.collider)    
+    // this.collider.setActiveEvents(physics.RAPIER.ActiveEvents.COLLISION_EVENTS)
+    
   }
 
   _controls() {
@@ -75,7 +81,7 @@ export class BallObject extends GameObject{
     this.body?.applyImpulse({ x, y, z }, true)
   }
 
-  update(deltaTime) {
+  update(deltaTime, physics) {
     if (!this.body) return;
 
     const speed = 6;
@@ -96,5 +102,15 @@ export class BallObject extends GameObject{
 
     this.onGround = isGrounded;
     this.jumpQueued = false;
+
+    // console.log(physics.world.colliders.map.data)
+    // physics.world.colliders.
+
+    physics.world.colliders.map.data.forEach(element => {
+      physics.world.contactPair(this.collider, element,() => {
+        console.log('contact')
+      }
+    )
+    });
   }
 }
