@@ -7,7 +7,7 @@ export class BallObject extends GameObject{
     const geometry = new THREE.SphereGeometry(1)
     
     const loader = new THREE.TextureLoader()
-    const texture = loader.load("../public/textures/balldimpled.png")
+    const texture = loader.load("/textures/balldimpled.png")
     texture.colorSpace = THREE.SRGBColorSpace
 
     const material = new THREE.MeshPhongMaterial({  
@@ -30,12 +30,12 @@ export class BallObject extends GameObject{
 
     if (!this.body) throw new Error('Ball physics body was not created')
 
-    this.body.setLinearDamping(1.5)
-    this.body.setAngularDamping(1.5)
+    this.collider?.setFriction(0.1)
+
+    this.body.setLinearDamping(0.3)
+    this.body.setAngularDamping(0.1)
     this.body.setGravityScale(10, true)
     
-    // debugger
-    // console.log(this.collider)
   }
 
   _controls() {
