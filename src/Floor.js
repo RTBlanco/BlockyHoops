@@ -13,7 +13,7 @@ export class FloorObject extends GameObject{
 
     // this.mesh.position.y = - 0.25;
 
-    new THREE.TextureLoader().load('../public/textures/grid.png', ( texture ) => {
+    new THREE.TextureLoader().load('/textures/grid.png', ( texture ) => {
 
       texture.wrapS = THREE.RepeatWrapping;
       texture.wrapT = THREE.RepeatWrapping;
