@@ -14,6 +14,7 @@ function getShape( geometry ) {
 	const parameters = geometry.parameters;
 
 	// TODO change type to is*
+	// debugger
 
 	if ( geometry.type === 'RoundedBoxGeometry' ) {
 
@@ -71,10 +72,7 @@ function getShape( geometry ) {
 
 		return RAPIER.ColliderDesc.trimesh( vertices, indices );
 
-	} else if (geometry.type == 'TetrahedronGeometry') {
-    const vertices = geometry.attributes.position.array;
-    return RAPIER.ColliderDesc.convexHull(vertices);
-  }
+	} 
 
 	console.error( 'RapierPhysics: Unsupported geometry type:', geometry.type );
 
@@ -137,9 +135,11 @@ async function RapierPhysics() {
 
 	}
 
-	function addMesh( mesh, mass = 0, restitution = 0 ) {
+	// lets try to write a callback function for getShape so if found 
+	// i can give it custom way of handling the shape
+	function addMesh( mesh, mass = 0, restitution = 0 , callback) {
 
-		const shape = getShape( mesh.geometry );
+		const shape = typeof callback === 'function' ? callback(mesh.geometry) : getShape( mesh.geometry );
 
 		if ( shape === null ) return;
 
@@ -394,6 +394,7 @@ async function RapierPhysics() {
 		 * @param {Mesh} mesh The mesh to add.
 		 * @param {number} [mass=0] The mass in kg of the mesh.
 		 * @param {number} [restitution=0] The restitution of the mesh, usually from 0 to 1. Represents how "bouncy" objects are when they collide with each other.
+		 * @param {function(geometry)} [callback] lets the rapier know wether to create dynamic 
 		 */
 		addMesh: addMesh,
 
