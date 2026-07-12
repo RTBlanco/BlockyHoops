@@ -5,7 +5,8 @@ import { FloorObject } from './Floor';
 import { LightObject } from './Light';
 import { BallObject } from './Ball';
 
-import { RapierPhysics } from 'three/addons/physics/RapierPhysics.js';
+// import { RapierPhysics } from 'three/addons/physics/RapierPhysics.js';
+import { RapierPhysics } from './RapierPhysics';
 import { RapierHelper } from 'three/addons/helpers/RapierHelper.js';
 import { BlockObject } from './Block';
 import { RampObject } from './Ramp';
