@@ -26,11 +26,12 @@ export class Manager {
     // this.activeScene.add(this.floor.mesh)
     this.activeScene.add(new LightObject().mesh) 
 
+
     this.objects = [
+      new RampObject(),
       new FloorObject(),
       new BallObject(),
       new BlockObject(),
-      new RampObject()
     ]
     
     this.initPhysics();
@@ -80,11 +81,12 @@ export class Manager {
     this._addToScene(this.objects)   
   }
 
-  _addToScene(items){
+  async _addToScene(items){
     for (const item of items) {
-      const mesh = item.mesh;
+      const loadedItem = await item.init()
+      const mesh = loadedItem.mesh;
       this.activeScene.add(mesh);
-      item.initializePhysics(this.physics)
+      loadedItem.initializePhysics(this.physics)
 
     }
   }
