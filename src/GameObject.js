@@ -28,6 +28,11 @@ export class GameObject {
     return this._mesh
   }
 
+  async init() {
+    // Objects that dont load can use this default no-op
+    return this
+  }
+
   initializePhysics(physics) {
     // Objects without physics can use this default no-op.
   }
