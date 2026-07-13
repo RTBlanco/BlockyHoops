@@ -22,6 +22,6 @@ export class BlockObject extends GameObject{
 
     // this.body.setLinearDamping(1.5)
     // this.body.setAngularDamping(1.5)
-    this.body.setGravityScale(1, true)
+    this.body.setGravityScale(10, true)
   }
 }
