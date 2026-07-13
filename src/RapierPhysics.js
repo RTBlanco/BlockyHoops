@@ -14,7 +14,6 @@ function getShape( geometry ) {
 	const parameters = geometry.parameters;
 
 	// TODO change type to is*
-	// debugger
 
 	if ( geometry.type === 'RoundedBoxGeometry' ) {
 
