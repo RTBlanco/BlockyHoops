@@ -55,14 +55,13 @@ export class Manager {
     if ( this.physicsHelper ) this.physicsHelper.update();
   
     
+
     for(let i=0; i < this.objects.length; i++){
       let objects = [...this.objects]
       objects.splice(i, i)
 
       this.objects[i].update(time, this.physics, objects);
     }
-
-
 
     this.renderer.render(this.activeScene, this.activeCamera);
   }
