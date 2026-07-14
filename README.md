@@ -2,7 +2,7 @@
 
 > This readme is obvious AI generated. I’ll change that. This is just a placeholder readme, to give it a bit of "life?"
 # Blocky Hoops
-Blocky Hoops is a physics-based puzzle game built with Three.js and Rapier. The player controls a basketball and pushes objects around the level to create a path into the hoop.
+Blocky Hoops is a physics-based puzzle game built with Three.js and Rapier. The player controls a basketball and thier objective is to use what objects are around in order to make themselves in the baseket 
 
 After completing a basket, the game is intended to continue to a new level with more obstacles and movable objects arranged randomly. Each level challenges the player to understand the environment, reposition objects, and use the game's physics to reach the hoop.
 
