@@ -35,14 +35,28 @@ export class CameraObject{
   }
 
   update(time, target){
-    const idealOffset = this._calculdateIdealOffset(target)
-    const idealLookat = this._calculdateIdealLookat(target)
+    const cameraOffset = new THREE.Vector3(0, 5, 10); // 5 units up, 10 units behind
 
-    this._currentPostition.copy(idealOffset)
-    this._currentLookat.copy(idealLookat)
+    // 2. Get the character's world position
+    const characterPosition = new THREE.Vector3();
+    target.getWorldPosition(characterPosition);
 
-    this.camera.position.copy(this._currentPostition)
-    this.camera.lookAt(this._currentLookat)
+    // 3. Update the camera position
+    this.camera.position.copy(characterPosition).add(cameraOffset);
+
+    // 4. Make the camera look at the character
+    this.camera.lookAt(characterPosition);
+
+    // Ensure the camera looks at the character
+    this.camera.lookAt(characterPosition);
+    // const idealOffset = this._calculdateIdealOffset(target)
+    // const idealLookat = this._calculdateIdealLookat(target)
+
+    // this._currentPostition.copy(idealOffset)
+    // this._currentLookat.copy(idealLookat)
+
+    // this.camera.position.copy(this._currentPostition)
+    // this.camera.lookAt(this._currentLookat)
   }
 
   _lockOn(object) {
