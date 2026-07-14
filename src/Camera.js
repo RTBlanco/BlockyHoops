@@ -10,23 +10,6 @@ export class CameraObject{
 
     this._currentPostition = new THREE.Vector3()
     this._currentLookat = new THREE.Vector3()
-
-    // this.camera = new THREE.OrthographicCamera()
-    // this.camera.position.set(0, 20, 50);
-  }
-
-  _calculdateIdealOffset(target) {
-    const idealOffset = new THREE.Vector3(-15, 20, -30)
-    idealOffset.applyQuaternion(target.rotation)
-    idealOffset.add(target.position)
-    return idealOffset
-  }
- 
-  _calculdateIdealLookat(target) {
-    const idealLookat = new THREE.Vector3(0, 10, 50)
-    idealLookat.applyQuaternion(target.rotation)
-    idealLookat.add(target.position)
-    return idealLookat
   }
 
 
@@ -58,6 +41,7 @@ export class CameraObject{
     // this.camera.position.copy(this._currentPostition)
     // this.camera.lookAt(this._currentLookat)
   }
+
 
   _lockOn(object) {
     this.camera.lookAt(object.position)
