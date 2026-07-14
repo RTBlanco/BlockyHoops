@@ -14,6 +14,17 @@ export class BlockObject extends GameObject{
     this.mesh.position.y = 1.5
   }
 
+  lock() {
+    if (this.body.isFixed()) {
+      this.body.setBodyType(0)
+    } else {
+      this.body.setBodyType(1)
+    }
+    // this.body.lockTranslations();
+    // this.body.lockRotations();
+    // this.body.setEnabledRotations(true, false, false, true);
+  }
+
   initializePhysics(physics) {
     physics.addMesh(this.mesh, 1)
     this.body = this.mesh.userData.physics?.body ?? null

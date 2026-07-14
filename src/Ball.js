@@ -38,10 +38,16 @@ export class BallObject extends GameObject{
     
   }
 
+  lock() {
+    this.body.lockTranslations(true, true);
+    this.body.lockRotations(true, true);
+    this.body.setEnabledRotations(true, false, false, true);
+  }
+
   _controls() {
     this.jumpQueued = false
     this.movement = { forward: 0, right: 0 };
-
+    this.lockItem = false
     this.coyoteTime = 0.15
     this.coyoteTimer = 0
 
@@ -49,7 +55,10 @@ export class BallObject extends GameObject{
     this.jumpBufferTimer = 0
 
     window.addEventListener( 'keydown', ( event ) => {
-
+      if ( event.key === 'l' ) {
+        event.preventDefault()
+        this.lockItem = true
+      }
       if ( event.key === 'w' || event.key === 'ArrowUp' ) this.movement.forward = 1;
       if ( event.key === 's' || event.key === 'ArrowDown' ) this.movement.forward = - 1;
       if ( event.key === 'a' || event.key === 'ArrowLeft' ) this.movement.right = - 1;
@@ -62,7 +71,6 @@ export class BallObject extends GameObject{
     } );
 
     window.addEventListener( 'keyup', ( event ) => {
-  
       if ( event.key === 'w' || event.key === 's' || event.key === 'ArrowUp' || event.key === 'ArrowDown' ) this.movement.forward = 0;
       if ( event.key === 'a' || event.key === 'd' || event.key === 'ArrowLeft' || event.key === 'ArrowRight' ) this.movement.right = 0;
   
@@ -87,9 +95,17 @@ export class BallObject extends GameObject{
     const jumpSpeed = 25
 
     this.onGround = false
-    physics.world.colliders.map.data.forEach(element => {
-      physics.world.contactPair(this.collider, element,(e, f) => {
+    objects.forEach(element => {
+      const collider = element.mesh.userData.physics.collider
+      physics.world.contactPair(this.collider, collider ,(e, f) => {
         this.onGround = true
+        // debugger
+        if (element.type === 'Block' && this.lockItem) {
+          console.log("touching block")
+          // debugger
+          element.lock()
+          this.lockItem = false
+        }
         // console.log(this.onGround)
         // console.log(element.translation().y)
         // console.log(e)
