@@ -18,20 +18,25 @@ export class CameraObject{
   }
 
   update(time, target){
-    const cameraOffset = new THREE.Vector3(0, 5, 10); // 5 units up, 10 units behind
+    const cameraOffset = new THREE.Vector3(0, 5, 15); // 5 units up, 10 units behind
 
     // 2. Get the character's world position
     const characterPosition = new THREE.Vector3();
     target.getWorldPosition(characterPosition);
 
-    // 3. Update the camera position
-    this.camera.position.copy(characterPosition).add(cameraOffset);
+    console.log(characterPosition)
+   
+    characterPosition.y = 2.5
 
+    // 3. Update the camera position
+    const ideal = this.camera.position.copy(characterPosition).add(cameraOffset);
+
+    // this.camera.position.lerp(ideal, 0.005)
     // 4. Make the camera look at the character
     this.camera.lookAt(characterPosition);
 
     // Ensure the camera looks at the character
-    this.camera.lookAt(characterPosition);
+    // this.camera.lookAt(characterPosition);
     // const idealOffset = this._calculdateIdealOffset(target)
     // const idealLookat = this._calculdateIdealLookat(target)
 
