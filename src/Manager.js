@@ -38,7 +38,7 @@ export class Manager {
     
     this.initPhysics();
     
-    const controls = new OrbitControls(this.activeCamera, this.canvas)
+    const controls = new OrbitControls(this.activeCamera.mesh, this.canvas)
     controls.target.set(0,5,0)
     controls.update()
 
@@ -48,8 +48,8 @@ export class Manager {
 
   update(time) {
     if (this._resizeRendererToDisplaySize(this.renderer)) {
-      this.activeCamera.aspect = this.canvas.clientWidth / this.canvas.clientHeight
-      this.activeCamera.updateProjectionMatrix()
+      this.activeCamera.mesh.aspect = this.canvas.clientWidth / this.canvas.clientHeight
+      this.activeCamera.mesh.updateProjectionMatrix()
     }
 
     if ( this.physicsHelper ) this.physicsHelper.update();
@@ -61,9 +61,15 @@ export class Manager {
       objects.splice(i, i)
 
       this.objects[i].update(time, this.physics, objects);
-    }
 
-    this.renderer.render(this.activeScene, this.activeCamera);
+      if (this.objects[i].type == "Ball" && this.objects[i].mesh ) {
+        // this.activeCamera.lookAt(this.objects[i].position)
+        // debugger
+        
+        this.activeCamera.update(time, this.objects[i].mesh)
+      }
+    }
+    this.renderer.render(this.activeScene, this.activeCamera.mesh);
   }
 
 

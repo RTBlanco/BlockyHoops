@@ -7,16 +7,42 @@ export class CameraObject{
     const near = 0.1;
     const far = 1000;
     this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    this.camera.position.set(0, 20, 50);
+
+    this._currentPostition = new THREE.Vector3()
+    this._currentLookat = new THREE.Vector3()
+
+    // this.camera = new THREE.OrthographicCamera()
+    // this.camera.position.set(0, 20, 50);
+  }
+
+  _calculdateIdealOffset(target) {
+    const idealOffset = new THREE.Vector3(-15, 20, -30)
+    idealOffset.applyQuaternion(target.rotation)
+    idealOffset.add(target.position)
+    return idealOffset
+  }
+ 
+  _calculdateIdealLookat(target) {
+    const idealLookat = new THREE.Vector3(0, 10, 50)
+    idealLookat.applyQuaternion(target.rotation)
+    idealLookat.add(target.position)
+    return idealLookat
+  }
+
+
+  get mesh() {
     return this.camera
   }
 
-  mesh() {
-    return this.camera
-  }
+  update(time, target){
+    const idealOffset = this._calculdateIdealOffset(target)
+    const idealLookat = this._calculdateIdealLookat(target)
 
-  update(time){
+    this._currentPostition.copy(idealOffset)
+    this._currentLookat.copy(idealLookat)
 
+    this.camera.position.copy(this._currentPostition)
+    this.camera.lookAt(this._currentLookat)
   }
 
   _lockOn(object) {

@@ -21,9 +21,6 @@ export class GameObject {
   }
 
   get mesh() {
-    if (!this._mesh) {
-      throw new Error(`${this.type} has not assigned a mesh`)
-    }
 
     return this._mesh
   }
