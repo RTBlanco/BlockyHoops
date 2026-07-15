@@ -71,6 +71,10 @@ export class BallObject extends GameObject{
     } );
 
     window.addEventListener( 'keyup', ( event ) => {
+      if ( event.key === 'l' ) {
+        event.preventDefault()
+        this.lockItem = false
+      }
       if ( event.key === 'w' || event.key === 's' || event.key === 'ArrowUp' || event.key === 'ArrowDown' ) this.movement.forward = 0;
       if ( event.key === 'a' || event.key === 'd' || event.key === 'ArrowLeft' || event.key === 'ArrowRight' ) this.movement.right = 0;
   
@@ -95,6 +99,7 @@ export class BallObject extends GameObject{
     const jumpSpeed = 25
 
     this.onGround = false
+
     objects.forEach(element => {
       const collider = element.mesh.userData.physics.collider
       physics.world.contactPair(this.collider, collider ,(e, f) => {
