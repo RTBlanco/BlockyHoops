@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 
 export class CameraObject{
   constructor(){
@@ -8,7 +9,13 @@ export class CameraObject{
     const far = 1000;
     this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
     // this.camera = new THREE.OrthographicCamera()
-    this.camera.position.set(10, 10 ,20)
+    this.camera.position.set(0, 7.8 ,15)
+    // Camera Controls
+    const gui = new GUI()
+    const cameraGui = gui.addFolder('Camera Postion')
+    cameraGui.add(this.camera.position, 'x', 0, 100)
+    cameraGui.add(this.camera.position, 'y', 0, 100)
+    cameraGui.add(this.camera.position, 'z', 0, 100)
   }
 
 
