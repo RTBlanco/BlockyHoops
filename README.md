@@ -15,7 +15,7 @@ After completing a basket, the game is intended to continue to a new level with 
 The main purpose of this project is to learn graphics and game development through practical experimentation with Three.js and Rapier Physics. It serves as a place to explore how rendered objects, player input, collision shapes, and rigid-body physics work together in a browser game.
 
 ## Inspiration
-While I was creating the game most of the movment and camera movement was based on the game Going balls
+While I was creating the game most of the movment and camera movement was based on the game called Marble Blasts
 
 ## Current features
 
