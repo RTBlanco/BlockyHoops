@@ -3,11 +3,12 @@ import { GameObject } from './GameObject'
 // import { RapierPhysics } from 'three/examples/jsm/Addons.js';
 import { RapierPhysics } from './RapierPhysics'
 import { GLTFLoader } from 'three/examples/jsm/Addons.js'
+import { Obsticle } from './Obsticle'
 
-export class RampObject extends GameObject{
+export class RampObject extends Obsticle{
   constructor(){
-    super('Ramp')
-
+    // super('Obsticle')
+    super()
     this.material = new THREE.MeshPhongMaterial({
       color: "green"
     })
@@ -18,7 +19,7 @@ export class RampObject extends GameObject{
     const geometry = await loader.loadAsync('/models/ramp.glb')
 
     this.mesh = geometry.scene.children[0]
-    this.mesh.position.y = 1.5
+    this.mesh.position.y = 1.3
     this.mesh.position.x = 5
     this.mesh.rotation.y = THREE.MathUtils.degToRad(180);
     this.mesh.material = this.material
@@ -26,7 +27,7 @@ export class RampObject extends GameObject{
   }
 
   initializePhysics(physics) {
-    physics.addMesh(this.mesh, 0, 0, (geometry) => {
+    physics.addMesh(this.mesh, 1, 0, (geometry) => {
       const vertices = geometry.attributes.position.array;
       return physics.RAPIER.ColliderDesc.convexHull(vertices);
     })
@@ -37,7 +38,7 @@ export class RampObject extends GameObject{
 
     // this.body.setLinearDamping(1.5)
     // this.body.setAngularDamping(1.5)
-    this.body.setGravityScale(1, true)
+    this.body.setGravityScale(10, true)
   }
 
 }
