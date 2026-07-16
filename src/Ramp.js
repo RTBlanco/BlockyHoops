@@ -7,7 +7,6 @@ import { Obsticle } from './Obsticle'
 
 export class RampObject extends Obsticle{
   constructor(){
-    // super('Obsticle')
     super()
     this.material = new THREE.MeshPhongMaterial({
       color: "green"

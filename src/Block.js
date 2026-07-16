@@ -4,7 +4,6 @@ import { Obsticle } from './Obsticle'
 
 export class BlockObject extends Obsticle{
   constructor(){
-    // super('Obsticle')
     super()
     const blockSize = 2.5
     const geometry = new THREE.BoxGeometry(blockSize, blockSize, blockSize, blockSize)
@@ -14,17 +13,6 @@ export class BlockObject extends Obsticle{
 
     this.mesh = new THREE.Mesh(geometry, material)
     this.mesh.position.y = 1.5
-  }
-
-  lock() {
-    if (this.body.isFixed()) {
-      this.body.setBodyType(0)
-    } else {
-      this.body.setBodyType(1)
-    }
-    // this.body.lockTranslations();
-    // this.body.lockRotations();
-    // this.body.setEnabledRotations(true, false, false, true);
   }
 
   initializePhysics(physics) {
