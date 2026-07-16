@@ -103,9 +103,11 @@ export class BallObject extends GameObject{
     objects.forEach(element => {
       const collider = element.mesh.userData.physics.collider
       physics.world.contactPair(this.collider, collider ,(e, f) => {
-        this.onGround = true
-        // debugger
-        if (element.type === 'Block' && this.lockItem) {
+        if (element.type === 'floor' || element.type === 'Obsticle') {
+          this.onGround = true
+        }
+        if (element.type === 'Obsticle' && this.lockItem) {
+          // debugger
           console.log("touching block")
           // debugger
           element.lock()
