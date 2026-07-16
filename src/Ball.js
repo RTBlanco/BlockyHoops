@@ -100,6 +100,8 @@ export class BallObject extends GameObject{
 
     this.onGround = false
 
+    // Think about using raycast, this will knock down any bottle necks
+    // no need to iterate so many times
     objects.forEach(element => {
       const collider = element.mesh.userData.physics.collider
       physics.world.contactPair(this.collider, collider ,(e, f) => {
