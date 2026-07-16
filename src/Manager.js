@@ -38,9 +38,9 @@ export class Manager {
     
     this.initPhysics();
     
-    const controls = new OrbitControls(this.activeCamera.mesh, this.canvas)
-    controls.target.set(0,5,0)
-    controls.update()
+    // const controls = new OrbitControls(this.activeCamera.mesh, this.canvas)
+    // controls.target.set(0,5,0)
+    // controls.update()
 
     
   }
