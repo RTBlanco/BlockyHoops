@@ -58,7 +58,7 @@ export class Manager {
 
     for(let i=0; i < this.objects.length; i++){
       let objects = [...this.objects]
-      objects.splice(i, i)
+      objects.splice(i, 1)
 
       this.objects[i].update(time, this.physics, objects);
 
@@ -75,12 +75,8 @@ export class Manager {
 
 
   async initPhysics() {
-    
-    //Initialize physics engine using the script in the jsm/physics folder
     this.physics = await RapierPhysics();
     
-    
-    //Optionally display collider outlines
     this.physicsHelper = new RapierHelper( this.physics.world );
     this.activeScene.add( this.physicsHelper );
 
