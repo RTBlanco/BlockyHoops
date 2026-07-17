@@ -142,10 +142,11 @@ export class BallObject extends GameObject{
     const canJump = this.coyoteTimer > 0 && this.jumpBufferTimer > 0
     const hasMovementInput = direction.lengthSq() > 0;
 
+
     this.body.setLinvel({
-      x: hasMovementInput ? direction.x * speed : velocity.x,
+      x: hasMovementInput && isGrounded ? direction.x * speed : velocity.x,
       y: canJump ? jumpSpeed : velocity.y,
-      z: hasMovementInput ? direction.z * speed : velocity.z,
+      z: hasMovementInput && isGrounded ? direction.z * speed : velocity.z,
     }, true);
 
 
