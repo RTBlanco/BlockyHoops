@@ -105,7 +105,7 @@ export class BallObject extends GameObject{
     objects.forEach(element => {
       const collider = element.mesh.userData.physics.collider
       physics.world.contactPair(this.collider, collider ,(e, f) => {
-        if (element.type === 'floor' || element.type === 'Obsticle') {
+        if (element.type === 'Arena' || element.type === 'Obsticle') {
           this.onGround = true
         }
         if (element.type === 'Obsticle' && this.lockItem) {
@@ -144,9 +144,9 @@ export class BallObject extends GameObject{
 
 
     this.body.setLinvel({
-      x: hasMovementInput && isGrounded ? direction.x * speed : velocity.x,
+      x: hasMovementInput ? direction.x * speed : velocity.x,
       y: canJump ? jumpSpeed : velocity.y,
-      z: hasMovementInput && isGrounded ? direction.z * speed : velocity.z,
+      z: hasMovementInput ? direction.z * speed : velocity.z,
     }, true);
 
 
