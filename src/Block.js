@@ -3,7 +3,7 @@ import { GameObject } from './GameObject'
 import { Obsticle } from './Obsticle'
 
 export class BlockObject extends Obsticle{
-  constructor(){
+  constructor(position){
     super()
     const blockSize = 2.5
     const geometry = new THREE.BoxGeometry(blockSize, blockSize, blockSize, blockSize)
@@ -12,7 +12,7 @@ export class BlockObject extends Obsticle{
     })
 
     this.mesh = new THREE.Mesh(geometry, material)
-    this.mesh.position.y = 1.5
+    this.mesh.position.copy(position)
   }
 
   initializePhysics(physics) {
