@@ -8,15 +8,14 @@ export class CameraObject{
     const near = 0.1;
     const far = 1000;
     this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    // this.camera = new THREE.OrthographicCamera()
     this.camera.position.set(0, 7.8 ,15)
-    // Camera Controls
-
-
+    
+    
     this.idealOffset = new THREE.Vector3(0, 8, 20);
     this.idealLookAt = new THREE.Vector3(); 
-
-
+    
+    
+    // Camera Controls
     const gui = new GUI()
     const cameraGui = gui.addFolder('Camera Postion')
     cameraGui.add(this.camera.position, 'x', -50, 50)
