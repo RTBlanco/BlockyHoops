@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 import { GameObject } from './GameObject';
 
-export class FloorObject extends GameObject{
+export class ArenaObject extends GameObject{
   constructor() {
-    super('floor')
+    super('Arena')
 
     const geometry = new THREE.BoxGeometry( 20, 0.5, 20 );
     const material = new THREE.MeshStandardMaterial( { color: 0xFFFFFF } );

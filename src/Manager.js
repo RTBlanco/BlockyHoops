@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import { CameraObject } from './Camera';
-import { FloorObject } from './Floor';
+import { ArenaObject } from './Arena';
 import { LightObject } from './Light';
 import { BallObject } from './Ball';
 
@@ -30,12 +30,11 @@ export class Manager {
 
     this.objects = [
       new HoopObject(),
-      new RampObject(),
-      new FloorObject(),
+      new RampObject(new THREE.Vector3(5, 1.5, 0)),
+      new ArenaObject(),
       new BallObject(),
-      new BlockObject(),
+      new BlockObject(new THREE.Vector3(0, 1.5, 0)),
     ]
-    
     this.initPhysics();
     
     // const controls = new OrbitControls(this.activeCamera.mesh, this.canvas)
