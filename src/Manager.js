@@ -11,7 +11,6 @@ import { RapierHelper } from 'three/addons/helpers/RapierHelper.js';
 import { BlockObject } from './Block';
 import { RampObject } from './Ramp';
 import { HoopObject } from './Hoop';
-import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 
 export class Manager {
   constructor(canvas, scenes=[], cameras=[]) {
