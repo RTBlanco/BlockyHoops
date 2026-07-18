@@ -11,6 +11,7 @@ import { RapierHelper } from 'three/addons/helpers/RapierHelper.js';
 import { BlockObject } from './Block';
 import { RampObject } from './Ramp';
 import { HoopObject } from './Hoop';
+import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 
 export class Manager {
   constructor(canvas, scenes=[], cameras=[]) {
@@ -27,11 +28,10 @@ export class Manager {
     // this.activeScene.add(this.floor.mesh)
     this.activeScene.add(new LightObject().mesh) 
 
-
     this.objects = [
-      new HoopObject(),
+      new HoopObject(new THREE.Vector3(0, -5.2, -15)),
       new RampObject(new THREE.Vector3(5, 1.5, 0)),
-      new ArenaObject(),
+      new ArenaObject(1),
       new BallObject(),
       new BlockObject(new THREE.Vector3(0, 1.5, 0)),
     ]
@@ -80,7 +80,7 @@ export class Manager {
     this.activeScene.add( this.physicsHelper );
 
     // this.floor.initializePhysics(this.physics)
-    this._addToScene(this.objects)   
+    this._addToScene(this.objects) 
   }
 
   async _addToScene(items){
@@ -110,5 +110,6 @@ export class Manager {
 
     return needResize
   }
+
 
 }
