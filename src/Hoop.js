@@ -3,14 +3,17 @@ import { GameObject } from './GameObject'
 // import { RapierPhysics } from 'three/examples/jsm/Addons.js';
 import { RapierPhysics } from './RapierPhysics'
 import { GLTFLoader } from 'three/examples/jsm/Addons.js'
+import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js'
 
 export class HoopObject extends GameObject{
-  constructor(){
+  constructor(position){
     super('Hoop')
 
     this.material = new THREE.MeshPhongMaterial({
       color: "green"
     })
+
+    this.position = position
   }
 
   async init() {
@@ -32,13 +35,25 @@ export class HoopObject extends GameObject{
     this.mesh.geometry.scale(17, 17, 17)
     // this.mesh.scale.set(1, 1, 1)
 
-    this.mesh.position.y = -5.2
-    this.mesh.position.z = - 15
-    this.mesh.rotation.y = THREE.MathUtils.degToRad(-90)
+    this.mesh.position.copy(this.position)
+    // this.mesh.position.y = -5.2
+    // this.mesh.position.z = - 15
+    this.mesh.rotation.y = THREE.MathUtils.degToRad(-90) // fix rotation with blender object
 
     // debugger
     // this.mesh.material = this.material
+    // this._gui()
     return this
+  }
+
+  _gui() {
+    const gui = new GUI
+    const cameraGui = gui.addFolder('Hoop')
+    const hoop = this.mesh
+
+    cameraGui.add(hoop.position, 'x', -50, 50)
+    cameraGui.add(hoop.position, 'y', -50, 50)
+    cameraGui.add(hoop.position, 'z', -50, 50)
   }
 
   initializePhysics(physics) {
