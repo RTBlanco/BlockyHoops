@@ -18,6 +18,7 @@ export class GameObject {
     }
 
     this._mesh = mesh
+    this._mesh.userData = {gameObjectType: this.type}
   }
 
   get mesh() {
