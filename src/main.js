@@ -1,6 +1,7 @@
 import './style.css'
 import { Manager } from './Manager'
 import * as THREE from 'three'
+import Stats from 'three/examples/jsm/libs/stats.module.js'
 
 
 const canvas = document.querySelector('#Game')
@@ -9,8 +10,11 @@ const renderer = manager.renderer
 
 const clock = new THREE.Timer()
 clock.connect(document)
+const stats = new Stats()
+document.body.appendChild( stats.dom );
 function render() {
   clock.update()
   manager.update(clock);
+  stats.update();
 }
 manager.renderer.setAnimationLoop(render)
