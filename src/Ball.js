@@ -19,8 +19,8 @@ export class BallObject extends GameObject{
     this.mesh.castShadow = true;
 
     this._controls()
-
-    
+    this.raycaster = new THREE.Raycaster()
+    this.downRay = new THREE.Vector3(0,-1,0)
   }
 
   initializePhysics(physics) {
@@ -105,24 +105,27 @@ export class BallObject extends GameObject{
     objects.forEach(element => {
       const collider = element.mesh.userData.physics.collider
       physics.world.contactPair(this.collider, collider ,(e, f) => {
-        if (element.type === 'Arena' || element.type === 'Obsticle') {
-          this.onGround = true
-        }
         if (element.type === 'Obsticle' && this.lockItem) {
-          // debugger
           console.log("touching block")
-          // debugger
           element.lock()
           this.lockItem = false
         }
-        // console.log(this.onGround)
-        // console.log(element.translation().y)
-        // console.log(e)
-        // debugger
-      }
-    )
+      })
     });
 
+    this.raycaster.set(this.mesh.position, this.downRay)
+    
+    const intersects = this.raycaster.intersectObjects(objects.map( o => o.mesh))
+
+    if (intersects.length > 0 ) {
+      const hit = intersects[0];
+      const distanceToGround = hit.distance;
+      // console.log('hit-> ', hit)
+      // console.log('distance->', distanceToGround)
+      if (distanceToGround < 1){
+        this.onGround = true
+      }
+    }
 
     // const speed = 6;
     const direction = new THREE.Vector3(this.movement.right, 0, -this.movement.forward);
@@ -156,8 +159,5 @@ export class BallObject extends GameObject{
     }
 
     this.onGround = isGrounded
-    // console.log(physics.world.colliders.map.data)
-    // physics.world.colliders.
-    // console.log(position)
   }
 }
