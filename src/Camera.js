@@ -19,8 +19,8 @@ export class CameraObject{
     const gui = new GUI()
     const cameraGui = gui.addFolder('Camera Postion')
     cameraGui.add(this.camera.position, 'x', -50, 50)
-    cameraGui.add(this.camera.position, 'y', 50, 50)
-    cameraGui.add(this.camera.position, 'z', 50, 50)
+    cameraGui.add(this.camera.position, 'y', -50, 50)
+    cameraGui.add(this.camera.position, 'z', -50, 50)
 
     const lookATgui = gui.addFolder('Lookat')
     lookATgui.add(this.idealLookAt, 'x', -50, 50)
