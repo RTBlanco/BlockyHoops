@@ -25,14 +25,12 @@ export class Menu {
     this.isPaused = true;
     this.onPauseChange(true);
     this.content.style.display = 'flex';
-    // Optional: Release pointer lock if using PointerLockControls
   }
 
   resumeGame() {
     this.isPaused = false;
     this.onPauseChange(false);
     this.content.style.display = 'none';
-    // Prevent the render clock from including the paused duration.
     this.time.reset();
 
     this.fn();
