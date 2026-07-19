@@ -164,5 +164,9 @@ export class BallObject extends GameObject{
     }
 
     this.onGround = isGrounded
+
+    if (this.mesh.position.y < - 2) {
+      this.body.setTranslation( new physics.RAPIER.Vector3( 0, 10, 0 ), true );
+    }
   }
 }
