@@ -12,33 +12,28 @@ import { BlockObject } from './Block';
 import { RampObject } from './Ramp';
 import { HoopObject } from './Hoop';
 
+import levels from './levesl.json' with { type: 'json'}
+
 export class Manager {
-  constructor(canvas, scenes=[], cameras=[]) {
+  constructor(canvas, menu, scenes=[], cameras=[]) {
     this.canvas = canvas
+    this.menu = menu
     this.renderer = new THREE.WebGLRenderer({antialias: true, canvas: this.canvas})
     this.scenes = scenes
     this.activeScene = scenes.length > 0 ? scenes[0] : new THREE.Scene()
     this.cameras = cameras
+    this.isPaused = this.menu.isPaused
     this.activeCamera = cameras.length > 0 ? cameras[0]: new CameraObject()
     const ambient = new THREE.HemisphereLight( 0x555555, 0xFFFFFF );
     this.activeScene.add(ambient)
+    this.level = 0
 
     // this.floor = new FloorObject()
     // this.activeScene.add(this.floor.mesh)
-    this.activeScene.add(new LightObject().mesh) 
+    this.activeScene.add(new LightObject().mesh)
 
-    this.objects = [
-      new HoopObject(new THREE.Vector3(0, 0, -41.5)),
-      new RampObject(new THREE.Vector3(5, 1.5, 0)),
-      new ArenaObject(1),
-      new BallObject(),
-      new BlockObject(new THREE.Vector3(0, 1.5, 0)),
-    ]
-    this.initPhysics();
+    this._loadLevel(this.level)
     
-    this.player = this.objects[3]
-    this.hoop = this.objects[0]
-
 
     const controls = new OrbitControls(this.activeCamera.mesh, this.canvas)
     controls.target.set(0,5,0)
@@ -62,12 +57,10 @@ export class Manager {
       const sensor = new THREE.Vector3()
       this.hoop.sensorPosition.getWorldPosition(sensor)
       
-      // debugger
       const distance = this.player.mesh.position.distanceTo(sensor)
-      // console.log(distance)
-      if (distance < .5) {
+      if (distance < 1) {
         // debugger
-        console.log('ya you won')
+        this._won()
       }
     }
     
@@ -75,15 +68,20 @@ export class Manager {
   }
 
 
-
   async initPhysics() {
     this.physics = await RapierPhysics();
+    this.physics.setPaused(this.isPaused)
     
-    this.physicsHelper = new RapierHelper( this.physics.world );
-    this.activeScene.add( this.physicsHelper );
+    // this.physicsHelper = new RapierHelper( this.physics.world );
+    // this.activeScene.add( this.physicsHelper );
 
     // this.floor.initializePhysics(this.physics)
     this._addToScene(this.objects) 
+  }
+
+  setPaused(paused) {
+    this.isPaused = paused
+    this.physics?.setPaused(paused)
   }
 
   async _addToScene(items){
@@ -125,5 +123,37 @@ export class Manager {
         this.activeCamera.update(time, this.objects[i].mesh)
       }
     }
+  }
+
+  _loadLevel(levelNum=0) {
+    if (levelNum != 0) {
+      this.objects.forEach(obj => {
+        this.activeScene.remove(obj.mesh)
+        this.physics.removeMesh(obj.mesh)
+  
+      })
+    }
+
+
+    const level = levels[levelNum]
+
+    this.player = new BallObject()
+    this.hoop = new HoopObject(new THREE.Vector3(level.Hoop.x,level.Hoop.y, level.Hoop.z))
+
+    this.objects = [
+      this.hoop,
+      new RampObject(new THREE.Vector3(level.obsticles.ramp.x, level.obsticles.ramp.y, level.obsticles.ramp.z)),
+      new ArenaObject(level.num),
+      this.player,
+      new BlockObject(new THREE.Vector3(level.obsticles.block.x, level.obsticles.block.y, level.obsticles.block.z)),
+    ]
+    this.initPhysics();
+  }
+
+
+  _won(){
+    this.menu.displayWin()
+    this.level ++ 
+    this._loadLevel(this.level)
   }
 }
