@@ -1,9 +1,8 @@
 import * as THREE from 'three'
-import { GameObject } from './GameObject';
+import { GameObject } from './gameObjects/GameObject';
 
-export class LightObject extends GameObject{
+export class LightObject{
   constructor(){
-    super('light')
     this.mesh = new THREE.DirectionalLight( 0xffffff, 4 );
 
     this.mesh.position.set( 0, 12.5, 12.5 );

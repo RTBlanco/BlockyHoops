@@ -16,21 +16,21 @@ export class CameraObject{
     
     
     // Camera Controls
-    const gui = new GUI()
-    const cameraGui = gui.addFolder('Camera Postion')
-    cameraGui.add(this.camera.position, 'x', -50, 50)
-    cameraGui.add(this.camera.position, 'y', -50, 50)
-    cameraGui.add(this.camera.position, 'z', -50, 50)
+    // const gui = new GUI()
+    // const cameraGui = gui.addFolder('Camera Postion')
+    // cameraGui.add(this.camera.position, 'x', -50, 50)
+    // cameraGui.add(this.camera.position, 'y', -50, 50)
+    // cameraGui.add(this.camera.position, 'z', -50, 50)
 
-    const lookATgui = gui.addFolder('Lookat')
-    lookATgui.add(this.idealLookAt, 'x', -50, 50)
-    lookATgui.add(this.idealLookAt, 'y', -50, 50)
-    lookATgui.add(this.idealLookAt, 'z', -50, 50)
+    // const lookATgui = gui.addFolder('Lookat')
+    // lookATgui.add(this.idealLookAt, 'x', -50, 50)
+    // lookATgui.add(this.idealLookAt, 'y', -50, 50)
+    // lookATgui.add(this.idealLookAt, 'z', -50, 50)
 
-    const offset = gui.addFolder('offset')
-    offset.add(this.idealOffset, 'x', -50, 50)
-    offset.add(this.idealOffset, 'y', -50, 50)
-    offset.add(this.idealOffset, 'z', -50, 50)
+    // const offset = gui.addFolder('offset')
+    // offset.add(this.idealOffset, 'x', -50, 50)
+    // offset.add(this.idealOffset, 'y', -50, 50)
+    // offset.add(this.idealOffset, 'z', -50, 50)
     // offset.add(this.idealLookAt.rotation, 'y', -50,50)
   }
 

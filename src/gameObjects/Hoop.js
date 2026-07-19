@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { GameObject } from './GameObject'
 // import { RapierPhysics } from 'three/examples/jsm/Addons.js';
-import { RapierPhysics } from './RapierPhysics'
+import { RapierPhysics } from '../RapierPhysics'
 import { GLTFLoader } from 'three/examples/jsm/Addons.js'
 import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js'
 

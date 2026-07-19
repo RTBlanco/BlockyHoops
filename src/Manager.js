@@ -1,18 +1,18 @@
 import * as THREE from 'three'
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import { CameraObject } from './Camera';
-import { ArenaObject } from './Arena';
+import { ArenaObject } from './gameObjects/Arena';
 import { LightObject } from './Light';
-import { BallObject } from './Ball';
+import { BallObject } from './gameObjects/Ball';
 
 // import { RapierPhysics } from 'three/addons/physics/RapierPhysics.js';
 import { RapierPhysics } from './RapierPhysics';
 import { RapierHelper } from 'three/addons/helpers/RapierHelper.js';
-import { BlockObject } from './Block';
-import { RampObject } from './Ramp';
-import { HoopObject } from './Hoop';
+import { BlockObject } from './obsticles/Block';
+import { RampObject } from './obsticles/Ramp';
+import { HoopObject } from './gameObjects/Hoop';
 
-import levels from './levesl.json' with { type: 'json'}
+import levels from './levels.json' with { type: 'json'}
 
 export class Manager {
   constructor(canvas, menu, scenes=[], cameras=[]) {

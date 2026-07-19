@@ -1,7 +1,7 @@
 import * as THREE from 'three'
-import { GameObject } from './GameObject'
+import { GameObject } from '../gameObjects/GameObject'
 // import { RapierPhysics } from 'three/examples/jsm/Addons.js';
-import { RapierPhysics } from './RapierPhysics'
+import { RapierPhysics } from '../RapierPhysics'
 import { GLTFLoader } from 'three/examples/jsm/Addons.js'
 import { Obsticle } from './Obsticle'
 

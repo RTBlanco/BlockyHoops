@@ -1,4 +1,4 @@
-import { GameObject } from "./GameObject";
+import { GameObject } from "../gameObjects/GameObject";
 
 export class Obsticle extends GameObject {
   constructor(type, position) {
