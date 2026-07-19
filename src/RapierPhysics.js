@@ -153,11 +153,11 @@ async function RapierPhysics() {
 
 		mesh.userData.physics.body = body;
 		mesh.userData.physics.collider = collider;
+		meshMap.set( mesh, { body, collider } );
 
 		if ( mass > 0 ) {
 
 			meshes.push( mesh );
-			meshMap.set( mesh, { body, collider } );
 
 		}
 
@@ -165,22 +165,22 @@ async function RapierPhysics() {
 
 	function removeMesh( mesh ) {
 
+		const physics = meshMap.get( mesh );
+
+		if ( physics === undefined ) return;
+
 		const index = meshes.indexOf( mesh );
 
 		if ( index !== - 1 ) {
 
 			meshes.splice( index, 1 );
-			meshMap.delete( mesh );
-
-			if ( ! mesh.userData.physics ) return;
-
-			const body = mesh.userData.physics.body;
-			const collider = mesh.userData.physics.collider;
-
-			if ( body ) removeBody( body );
-			if ( collider ) removeCollider( collider );
 
 		}
+
+		if ( physics.body ) removeBody( physics.body );
+
+		meshMap.delete( mesh );
+		delete mesh.userData.physics;
 
 	}
 
@@ -377,12 +377,19 @@ async function RapierPhysics() {
 
 	// animate
 
-	setInterval( step, 1000 / frameRate );
+	const intervalId = setInterval( step, 1000 / frameRate );
+
+	function dispose() {
+
+		clearInterval( intervalId );
+
+	}
 
 	return {
 		RAPIER,
 		world,
 		setPaused,
+		dispose,
 		/**
 		 * Adds the given scene to this physics simulation. Only meshes with a
 		 * `physics` object in their {@link Object3D#userData} field will be honored.
