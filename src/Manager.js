@@ -36,9 +36,13 @@ export class Manager {
     ]
     this.initPhysics();
     
-    // const controls = new OrbitControls(this.activeCamera.mesh, this.canvas)
-    // controls.target.set(0,5,0)
-    // controls.update()
+    this.player = this.objects[3]
+    this.hoop = this.objects[0]
+
+
+    const controls = new OrbitControls(this.activeCamera.mesh, this.canvas)
+    controls.target.set(0,5,0)
+    controls.update()
 
     
   }
@@ -53,6 +57,19 @@ export class Manager {
     if ( this.physicsHelper ) this.physicsHelper.update();
     this._addGameLoops(time)
 
+
+    if (this.player.mesh && this.hoop.mesh) {
+      const sensor = new THREE.Vector3()
+      this.hoop.sensorPosition.getWorldPosition(sensor)
+      
+      // debugger
+      const distance = this.player.mesh.position.distanceTo(sensor)
+      // console.log(distance)
+      if (distance < .5) {
+        // debugger
+        console.log('ya you won')
+      }
+    }
     
     this.renderer.render(this.activeScene, this.activeCamera.mesh);
   }
