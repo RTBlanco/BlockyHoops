@@ -120,8 +120,8 @@ export class BallObject extends GameObject{
     if (intersects.length > 0 ) {
       const hit = intersects[0];
       const distanceToGround = hit.distance;
-      // console.log('hit-> ', hit)
-      // console.log('distance->', distanceToGround)
+
+      console.log('distance->', distanceToGround)
       if (distanceToGround < 1){
         this.onGround = true
       }
