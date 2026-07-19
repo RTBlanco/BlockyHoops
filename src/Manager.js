@@ -66,14 +66,13 @@ export class Manager {
 
 
   async initPhysics() {
-    this.physics = await RapierPhysics();
+    if (!this.physics) {
+      this.physics = await RapierPhysics();
+    }
     this.physics.setPaused(this.isPaused)
-    
-    // this.physicsHelper = new RapierHelper( this.physics.world );
-    // this.activeScene.add( this.physicsHelper );
 
     // this.floor.initializePhysics(this.physics)
-    this._addToScene(this.objects) 
+    await this._addToScene(this.objects)
   }
 
   setPaused(paused) {
@@ -126,7 +125,10 @@ export class Manager {
     if (levelNum != 0) {
       this.objects.forEach(obj => {
         this.activeScene.remove(obj.mesh)
-        this.physics.removeMesh(obj.mesh)
+
+        obj.mesh?.traverse(child => {
+          if (child.isMesh) this.physics.removeMesh(child)
+        })
   
       })
     }
