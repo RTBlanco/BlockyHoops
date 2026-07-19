@@ -318,8 +318,10 @@ async function RapierPhysics() {
 	//
 
 	const timer = new Timer();
+	let isPaused = false;
 
 	function step() {
+		if ( isPaused ) return;
 
 		timer.update();
 
@@ -364,6 +366,15 @@ async function RapierPhysics() {
 
 	}
 
+	function setPaused( paused ) {
+
+		isPaused = paused;
+
+		// Prevent the next physics step from including the paused duration.
+		if ( paused === false ) timer.reset();
+
+	}
+
 	// animate
 
 	setInterval( step, 1000 / frameRate );
@@ -371,6 +382,7 @@ async function RapierPhysics() {
 	return {
 		RAPIER,
 		world,
+		setPaused,
 		/**
 		 * Adds the given scene to this physics simulation. Only meshes with a
 		 * `physics` object in their {@link Object3D#userData} field will be honored.
