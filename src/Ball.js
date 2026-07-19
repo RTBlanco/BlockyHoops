@@ -99,6 +99,7 @@ export class BallObject extends GameObject{
     const jumpSpeed = 25
 
     this.onGround = false
+    this.boost = false
 
     // Think about using raycast, this will knock down any bottle necks
     // no need to iterate so many times
@@ -121,13 +122,16 @@ export class BallObject extends GameObject{
       const hit = intersects[0];
       const distanceToGround = hit.distance;
 
-      console.log('distance->', distanceToGround)
+      // console.log(hit.object.userData.gameObjectType)
+      if (hit.object.userData.gameObjectType == "Ramp") {
+        this.boost = true
+      }
+      // console.log('distance->', distanceToGround)
       if (distanceToGround < 1){
         this.onGround = true
       }
     }
 
-    // const speed = 6;
     const direction = new THREE.Vector3(this.movement.right, 0, -this.movement.forward);
     if (direction.lengthSq() > 1) direction.normalize();
 
@@ -145,11 +149,12 @@ export class BallObject extends GameObject{
     const canJump = this.coyoteTimer > 0 && this.jumpBufferTimer > 0
     const hasMovementInput = direction.lengthSq() > 0;
 
+    const boost = this.boost ? 10 : 1
 
     this.body.setLinvel({
       x: hasMovementInput ? direction.x * speed : velocity.x,
       y: canJump ? jumpSpeed : velocity.y,
-      z: hasMovementInput ? direction.z * speed : velocity.z,
+      z: hasMovementInput ? direction.z * speed * boost : velocity.z,
     }, true);
 
 
