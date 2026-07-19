@@ -7,7 +7,7 @@ import { Obsticle } from './Obsticle'
 
 export class RampObject extends Obsticle{
   constructor(position){
-    super('Ramp')
+    super('Ramp', position)
     this.material = new THREE.MeshPhongMaterial({
       color: "green"
     })
