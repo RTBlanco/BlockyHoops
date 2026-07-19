@@ -57,7 +57,11 @@ export class HoopObject extends GameObject{
 
   sensor() {
     const geometry = new THREE.CircleGeometry( 2, 32 );
-    const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+
+    const material = new THREE.MeshBasicMaterial({
+      transparent: true,
+      opacity: 0
+    });
     const circle = new THREE.Mesh( geometry, material );
    
     circle.position.copy(new THREE.Vector3(9.6,9,0))
