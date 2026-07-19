@@ -51,22 +51,9 @@ export class Manager {
     }
 
     if ( this.physicsHelper ) this.physicsHelper.update();
-  
+    this._addGameLoops(time)
+
     
-
-    for(let i=0; i < this.objects.length; i++){
-      let objects = [...this.objects]
-      objects.splice(i, 1)
-
-      this.objects[i].update(time, this.physics, objects);
-
-      if (this.objects[i].type == "Ball" && this.objects[i].mesh ) {
-        // this.activeCamera.lookAt(this.objects[i].position)
-        // debugger
-        
-        this.activeCamera.update(time, this.objects[i].mesh)
-      }
-    }
     this.renderer.render(this.activeScene, this.activeCamera.mesh);
   }
 
@@ -110,5 +97,16 @@ export class Manager {
     return needResize
   }
 
+  _addGameLoops(time) {
+    for(let i=0; i < this.objects.length; i++){
+      let objects = [...this.objects]
+      objects.splice(i, 1)
 
+      this.objects[i].update(time, this.physics, objects);
+
+      if (this.objects[i].type == "Ball" && this.objects[i].mesh ) {
+        this.activeCamera.update(time, this.objects[i].mesh)
+      }
+    }
+  }
 }
