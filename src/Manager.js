@@ -28,7 +28,7 @@ export class Manager {
     this.activeScene.add(new LightObject().mesh) 
 
     this.objects = [
-      new HoopObject(new THREE.Vector3(0, -5.2, -15)),
+      new HoopObject(new THREE.Vector3(0, 0, -41.5)),
       new RampObject(new THREE.Vector3(5, 1.5, 0)),
       new ArenaObject(1),
       new BallObject(),
