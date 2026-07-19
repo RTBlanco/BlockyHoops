@@ -4,7 +4,7 @@ import { Obsticle } from './Obsticle'
 
 export class BlockObject extends Obsticle{
   constructor(position){
-    super()
+    super('Block')
     const blockSize = 2.5
     const geometry = new THREE.BoxGeometry(blockSize, blockSize, blockSize, blockSize)
     const material = new THREE.MeshPhongMaterial({
