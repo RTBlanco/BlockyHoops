@@ -1,8 +1,9 @@
 import { GameObject } from "./GameObject";
 
 export class Obsticle extends GameObject {
-  constructor() {
+  constructor(type) {
     super("Obsticle")
+    this.obsticleType = type
   }
 
   lock() {
@@ -11,9 +12,6 @@ export class Obsticle extends GameObject {
     } else {
       this.body.setBodyType(1)
     }
-    // this.body.lockTranslations();
-    // this.body.lockRotations();
-    // this.body.setEnabledRotations(true, false, false, true);
   }
 
   initializePhysics(physics) {
