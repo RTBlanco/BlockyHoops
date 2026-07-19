@@ -7,7 +7,7 @@ import { Obsticle } from './Obsticle'
 
 export class RampObject extends Obsticle{
   constructor(position){
-    super()
+    super('Ramp')
     this.material = new THREE.MeshPhongMaterial({
       color: "green"
     })
@@ -24,6 +24,7 @@ export class RampObject extends Obsticle{
     this.mesh.position.copy(this.position)
     this.mesh.rotation.y = THREE.MathUtils.degToRad(180);
     this.mesh.material = this.material
+    this.mesh.userData.gameObjectType = "Ramp"
     return this
   }
 
