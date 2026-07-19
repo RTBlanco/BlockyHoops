@@ -19,7 +19,6 @@ export class HoopObject extends GameObject{
   async init() {
     const loader = new GLTFLoader()
     const geometry = await loader.loadAsync('/models/basketball_hoop.glb')
-    // const colider = await loader.loadAsync('/models/hoopColider.glb')
 
     let hoopMesh
 
@@ -33,16 +32,11 @@ export class HoopObject extends GameObject{
     this.mesh = hoopMesh
     this.mesh.geometry = this.mesh.geometry.clone()
     this.mesh.geometry.scale(17, 17, 17)
-    // this.mesh.scale.set(1, 1, 1)
 
     this.mesh.position.copy(this.position)
-    // this.mesh.position.y = -5.2
-    // this.mesh.position.z = - 15
     this.mesh.rotation.y = THREE.MathUtils.degToRad(-90) // fix rotation with blender object
 
-    // debugger
-    // this.mesh.material = this.material
-    // this._gui()
+    this._gui()
     return this
   }
 
