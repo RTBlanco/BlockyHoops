@@ -55,9 +55,9 @@ export class Menu {
   changeToScored(onContinue) {
     const innerHTML = `
       <H1>Congratulations</H1>
-      <h1>You Scored in what ever time</h1>
+      <h1>You Scored in what ever time</h1> 
       <button>Continue to next level</button>
-    `
+    `// ill change the " what ever time later"
     this.content.firstElementChild.innerHTML = innerHTML
     this.scoredMenu = true
     this.content.querySelector('button').addEventListener('click', () => {
