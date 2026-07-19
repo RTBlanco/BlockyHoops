@@ -58,8 +58,8 @@ export class Manager {
       this.hoop.sensorPosition.getWorldPosition(sensor)
       
       const distance = this.player.mesh.position.distanceTo(sensor)
-      if (distance < 1) {
-        // debugger
+      console.log(distance)
+      if (distance < 1 && !this.menu.isPaused) {
         this._won()
       }
     }
@@ -152,8 +152,11 @@ export class Manager {
 
 
   _won(){
-    this.menu.displayWin()
-    this.level ++ 
-    this._loadLevel(this.level)
+    const nextLevel = (this.level + 1) % levels.length
+
+    this.menu.displayWin(() => {
+      this.level = nextLevel
+      this._loadLevel(this.level)
+    })
   }
 }
