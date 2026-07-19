@@ -28,8 +28,6 @@ export class Manager {
     this.activeScene.add(ambient)
     this.level = 0
 
-    // this.floor = new FloorObject()
-    // this.activeScene.add(this.floor.mesh)
     this.activeScene.add(new LightObject().mesh)
 
     this._loadLevel(this.level)
@@ -58,7 +56,6 @@ export class Manager {
       this.hoop.sensorPosition.getWorldPosition(sensor)
       
       const distance = this.player.mesh.position.distanceTo(sensor)
-      console.log(distance)
       if (distance < 1 && !this.menu.isPaused) {
         this._won()
       }
@@ -152,10 +149,9 @@ export class Manager {
 
 
   _won(){
-    const nextLevel = (this.level + 1) % levels.length
-
+    // const nextLevel = (this.level + 1) % levels.length
+    this.level ++
     this.menu.displayWin(() => {
-      this.level = nextLevel
       this._loadLevel(this.level)
     })
   }

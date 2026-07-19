@@ -39,7 +39,6 @@ While I was creating the game most of the movment and camera movement was based 
 | Move left | `A` or `Arrow Left` |
 | Move right | `D` or `Arrow Right` |
 | Jump | `Space` |
-| Orbit camera | Mouse |
 
 ## What I learned
 
@@ -51,10 +50,11 @@ Building Blocky Hoops has helped me learn:
 - How to connect Three.js meshes to Rapier rigid bodies and colliders
 - How to control velocity, gravity, impulses, damping, and collision behavior
 - How to process keyboard input and update player movement every frame
-- How player-friendly mechanics such as coyote time and jump buffering work
+- How player friendly mechanics such as coyote time and jump buffering work
 - How vertices and geometry form the objects displayed on screen
 - How vectors, direction, velocity, and other basic game math affect movement
 - How a rendering loop and physics simulation work together
+- That is better to build your own physics wrapper
 
 ## Built with
 
