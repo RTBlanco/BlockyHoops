@@ -37,6 +37,7 @@ export class HoopObject extends GameObject{
     this.mesh.rotation.y = THREE.MathUtils.degToRad(-90) // fix rotation with blender object
 
     this._gui()
+    this.sensorPosition = this.sensor()
     return this
   }
 
@@ -51,31 +52,27 @@ export class HoopObject extends GameObject{
   }
 
   initializePhysics(physics) {
-    // physics.addMesh(this.mesh, 1, 0, (geometry) => {
-    //   // debugger
-    //   const vertices = geometry.attributes.position.array;
-    //   return physics.RAPIER.ColliderDesc.convexHull(vertices);
-    // })
-    // physics.addMesh(this.meshColider, 0)
     physics.addMesh(this.mesh, 0)
-    // physics.addMesh(this.mesh.children[0], 0)
-    // physics.addScene(this.mesh)
-    // debugger
-    // this.mesh.traverse(obj => {
-    //   // console.log(obj.type)
-    //   // if (obj.geometry && obj.geometry.type === 'BufferGeometry'){
-    //   //   physics.addMesh(obj, 0)
-    //   // }
-    // })
+  }
+
+  sensor() {
+    const geometry = new THREE.CircleGeometry( 2, 32 );
+    const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+    const circle = new THREE.Mesh( geometry, material );
    
+    circle.position.copy(new THREE.Vector3(9.6,9,0))
+    circle.rotation.x = THREE.MathUtils.degToRad(-90)
+    this.mesh.add( circle )
 
-    // this.body = this.mesh.userData.physics?.body ?? null
 
-    // if (!this.body) throw new Error('Block physics body was not created')
+    // const gui = new GUI
+    // const cameraGui = gui.addFolder('HoopSensor')
 
-    // this.body.setLinearDamping(1.5)
-    // this.body.setAngularDamping(1.5)
-    // this.body.setGravityScale(1, true)
+
+    // cameraGui.add(circle.position, 'x', -50, 50)
+    // cameraGui.add(circle.position, 'y', -50, 50)
+    // cameraGui.add(circle.position, 'z', -50, 50)
+    return circle
   }
 
 }
