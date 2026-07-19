@@ -95,7 +95,7 @@ export class BallObject extends GameObject{
     if (!this.body) return;
 
     const deltaTime = time.getDelta()
-    const speed = 6
+    const speed = 10
     const jumpSpeed = 25
 
     this.onGround = false
