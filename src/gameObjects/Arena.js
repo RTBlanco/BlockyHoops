@@ -8,7 +8,6 @@ export class ArenaObject extends GameObject{
 
     const levels = ['dev', 'level1']
     this.level = levels[level]
-    // this.mesh.position.y = - 0.25;
     
     this.physicsMeshes = []
     if (this.level == 'dev') {
@@ -58,9 +57,5 @@ export class ArenaObject extends GameObject{
     })
 
     this.mesh.userData.physics = this.physicsMeshes[0]
-
-    // this.body.setLinearDamping(1.5)
-    // this.body.setAngularDamping(1.5)
-    // this.body.setGravityScale(10, true)
   }
 }
