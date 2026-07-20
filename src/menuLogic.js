@@ -49,18 +49,22 @@ export class Menu {
     `
     this.content.firstElementChild.innerHTML = innerHTML
     this.scoredMenu = false
-    document.querySelector('button').addEventListener('click', e => (this.resumeGame()));
+    const button = document.querySelector('button')
+    button.focus()
+    button.addEventListener('click', e => (this.resumeGame()));
   }
 
   changeToScored(onContinue) {
     const innerHTML = `
       <H1>Congratulations</H1>
       <h1>You Scored</h1> 
-      <button>Continue to next level</button>
+      <button autofocus>Continue to next level</button>
     `// ill change the " what ever time later"
     this.content.firstElementChild.innerHTML = innerHTML
     this.scoredMenu = true
-    this.content.querySelector('button').addEventListener('click', () => {
+    const button = document.querySelector('button')
+    button.focus()
+    button.addEventListener('click', () => {
       onContinue()
       this.resumeGame()
     });
