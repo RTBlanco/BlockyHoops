@@ -19,8 +19,6 @@ export class RampObject extends Obsticle{
     const geometry = await loader.loadAsync('/models/ramp.glb')
 
     this.mesh = geometry.scene.children[0]
-    // this.mesh.position.y = 1.3
-    // this.mesh.position.x = 5
     this.mesh.position.copy(this.position)
     this.mesh.rotation.y = THREE.MathUtils.degToRad(180);
     this.mesh.material = this.material
