@@ -151,7 +151,6 @@ export class Manager {
 
 
   _won(){
-    // const nextLevel = (this.level + 1) % levels.length
     this.level ++
     this.menu.displayWin(() => {
       this._loadLevel(this.level)
